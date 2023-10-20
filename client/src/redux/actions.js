@@ -1,6 +1,8 @@
 import axios from 'axios';
 import {
-    GET_ALL_CRYPTOS
+    GET_ALL_CRYPTOS,
+    SEARCH_CRYPTOCURRENCIESDB,
+    GET_DETAIL_CRYPTO,
 } from './actionTypes'
 
 // Acción para obtener y guardar criptomonedas
@@ -28,3 +30,38 @@ export function getAllCryptos(name) {
     };
   }
 
+  // Acción para buscar criptomonedas por nombre o símbolo en la base de datos
+  export function searchCryptocurrenciesDB(name, symbol) {
+    console.log('Dispatching searchCryptocurrenciesDB action');
+    return async function (dispatch) {
+        try {
+            const { data } = await axios.get(`/search?name=${name}&symbol=${symbol}`);
+            
+            // Si la búsqueda fue exitosa, establece el error en null
+       
+            return dispatch({
+                type: SEARCH_CRYPTOCURRENCIESDB,
+                payload: data,
+            });
+        } catch (error) {
+          console.log('No se encontraron resultados', error);
+            // dispatch(setError(error.message));
+        }
+    };
+}
+
+
+export function getDetailCrypto(id) {
+  return async function(dispatch){
+    console.log(`a ver si llega el id aca, id:`);
+    try {
+      const { data } = await axios.get(`/detail/${id}`)
+      return dispatch({
+        type: GET_DETAIL_CRYPTO,
+        payload: data,
+      })
+    } catch (error) {
+      console.log('No se encontraron los detalles', error);
+    }
+  }
+}
