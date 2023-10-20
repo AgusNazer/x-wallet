@@ -3,58 +3,110 @@
 const axios = require('axios');
 const Cryptocurrency = require('../models/cryptosModel'); // Importa tu modelo de criptomonedas
 
-// Controlador para buscar y ordenar las criptomonedas
+
+// Controlador para guardar todas las criptomonedas en MongoDB
+// const saveAllCryptos = async (req, res) => {
+//   try {
+//     // Realiza una solicitud a la API de Coingecko para obtener la lista de criptomonedas
+//     const response = await axios.get('https://api.coingecko.com/api/v3/coins/list');
+//     const cryptoList = response.data;
+
+//     // Recorre la lista de criptomonedas y guárdalas en la base de datos si no existen
+//     for (const crypto of cryptoList) {
+//       const { id, name, symbol } = crypto;
+
+//       // Verifica si ya existe una criptomoneda con el mismo ID en la base de datos
+//       const existingCrypto = await Cryptocurrency.findOne({ id });
+
+//       // Si no existe, crea un nuevo documento de criptomoneda y guárdalo
+//       if (!existingCrypto) {
+//         const newCrypto = new Cryptocurrency({
+//           id,
+//           name,
+//           symbol,
+//           // Agrega más campos y detalles aquí si es necesario
+//         });
+
+//         // Guarda el nuevo documento en la base de datos
+//         await newCrypto.save();
+//       }
+//     }
+
+//     res.status(201).json({ message: 'Todas las criptomonedas guardadas correctamente' });
+//   } catch (error) {
+//     console.error('Error al guardar todas las criptomonedas:', error);
+//     res.status(500).json({ error: 'Ocurrió un error al guardar todas las criptomonedas.' });
+//   }
+// };
+
+// Controlador para buscar y guardar enla DB
 const getAllCryptos = async (req, res) => {
-    try {
-      const { name, order } = req.query;
-  
-      // Parámetros para la solicitud a la API de Coingecko
-      const apiParams = {
-        vs_currency: 'usd',
-        order: order || 'market_cap_desc', // Orden por capitalización de mercado descendente (por defecto)
-        per_page: 100,
-        page: 1,
-        sparkline: false,
-      };
-  
-      // Si se proporciona un nombre de criptomoneda, agregamos el parámetro 'name' a la solicitud
-      if (name) {
-        apiParams.name = name;
-      }
-  
-      // Realiza una solicitud GET a la API de Coingecko con los parámetros configurados
-      const response = await axios.get('https://api.coingecko.com/api/v3/coins/markets', {
-        params: apiParams,
-      });
-  
-      const cryptocurrencyData = response.data;
-  
-      res.json(cryptocurrencyData);
-    } catch (error) {
-      console.error('Error al obtener criptomonedas:', error);
-      res.status(500).json({ error: 'Ocurrió un error al obtener criptomonedas.' });
-    }
-  };
-  
-  
-
-
-// Controlador para buscar criptomonedas por nombre o símbolo
-const searchCryptocurrencies = async (req, res) => {
   try {
-    const { name, symbol } = req.query;
+    const { name } = req.query;
 
-    // Implementa la lógica de búsqueda aquí
-    // Por ejemplo, puedes usar la API de Coingecko para buscar criptomonedas
+    // Parámetros para la solicitud a la API de Coingecko
+    const apiParams = {
+      vs_currency: 'usd',
+      per_page: 100,
+      page: 1,
+      sparkline: false,
+    };
+    // Si se proporciona un nombre de criptomoneda, agregamos el parámetro 'name' a la solicitud
+    if (name) {
+      apiParams.name = name;
+    }
 
-    // Ejemplo de búsqueda con la API de Coingecko
-    const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${symbol || name}`);
+    // Realiza una solicitud GET a la API de Coingecko con los parámetros configurados
+    const response = await axios.get('https://api.coingecko.com/api/v3/coins/markets', {
+      params: apiParams,
+    });
+
     const cryptocurrencyData = response.data;
+
+    // Guardar los datos en la base de datos
+    for (const crypto of cryptocurrencyData) {
+      const { id, name, symbol, market_cap } = crypto;
+
+      // Verifica si ya existe una criptomoneda con el mismo ID en la base de datos
+      const existingCrypto = await Cryptocurrency.findOne({ id });
+
+      // Si no existe, crea un nuevo documento de criptomoneda y guárdalo
+      if (!existingCrypto) {
+        const newCrypto = new Cryptocurrency({
+          id,
+          name,
+          symbol,
+          market_cap
+          // Agrega más campos y detalles aquí si es necesario
+        });
+
+        // Guarda el nuevo documento en la base de datos
+        await newCrypto.save();
+      }
+    }
 
     res.json(cryptocurrencyData);
   } catch (error) {
-    console.error('Error al buscar criptomonedas:', error);
-    res.status(500).json({ error: 'Ocurrió un error al buscar criptomonedas.' });
+    console.error('Error al obtener y guardar criptomonedas:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener y guardar criptomonedas.' });
+  }
+};
+  
+  
+
+
+// Controlador para buscar criptomonedas por nombre o símbolo en mi DB
+const searchCryptocurrenciesDB = async (req, res) => {
+  try {
+    const { name, symbol } = req.query;
+
+    // Realiza una búsqueda en la base de datos MongoDB
+    const cryptocurrencies = await Cryptocurrency.find({ name: name, symbol:symbol });
+
+    res.json(cryptocurrencies);
+  } catch (error) {
+    console.error('Error al buscar criptomonedas en la base de datos:', error);
+    res.status(500).json({ error: 'Ocurrió un error al buscar criptomonedas en la base de datos.' });
   }
 };
 
@@ -118,8 +170,9 @@ const sortCryptocurrencies = async (req, res) => {
   
 
 module.exports = {
+  // saveAllCryptos,
   getAllCryptos,
-  searchCryptocurrencies,
+  searchCryptocurrenciesDB,
   getAllCryptocurrencies,
   saveCryptocurrency,
   sortCryptocurrencies,
