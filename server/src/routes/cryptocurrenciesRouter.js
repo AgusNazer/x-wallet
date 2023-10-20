@@ -22,4 +22,7 @@ router.get('/sort', cryptocurrenciesController.sortCryptocurrencies);
 // Rutas para buscar criptomonedas por nombre o símbolo en la DB
 router.get('/search', cryptocurrenciesController.searchCryptocurrenciesDB);
 
+// Ruta para obtener crypto por id (detail)
+router.get('/detail/:id', cryptocurrenciesController.getDetailCrypto);
+
 module.exports = router;

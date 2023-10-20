@@ -1,5 +1,7 @@
 import {
     GET_ALL_CRYPTOS,
+    SEARCH_CRYPTOCURRENCIESDB,
+    GET_DETAIL_CRYPTO,
 } from './actionTypes';
 
 const initialState = {
@@ -13,6 +15,16 @@ const reducer = ( state = initialState, {type, payload})=>{
                 ...state,
                 cryptos: payload,
             }
+            case SEARCH_CRYPTOCURRENCIESDB:
+            return {
+                ...state,
+                cryptos: payload, // Actualiza el estado con las criptomonedas encontradas
+            }
+            case GET_DETAIL_CRYPTO:
+                return {
+                    ...state,
+                    cryptos: payload, 
+                }
             default:
                 return state;
     }
