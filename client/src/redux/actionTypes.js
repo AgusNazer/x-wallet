@@ -1,0 +1,1 @@
+export const GET_ALL_CRYPTOS = 'GET_ALL_CRYPTOS';
