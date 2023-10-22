@@ -11,7 +11,9 @@ const cryptoSchema = new mongoose.Schema({
   name: String, // Nombre de la criptomoneda
   symbol: String, // Símbolo de la criptomoneda
   market_cap: Number,
-  total_volumen: Number
+  total_volumen: Number,
+  image: String,
+  description: String
 });
 
 const Crypto = mongoose.model('Crypto', cryptoSchema);

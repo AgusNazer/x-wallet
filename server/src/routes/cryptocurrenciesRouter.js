@@ -17,12 +17,15 @@ router.get('/cryptocurrencies', cryptocurrenciesController.getAllCryptocurrencie
 router.post('/cryptocurrencies', cryptocurrenciesController.saveCryptocurrency);
 
 // Ruta para ordenar las criptomonedas
-router.get('/sort', cryptocurrenciesController.sortCryptocurrencies);
+// router.get('/sortByName', cryptocurrenciesController.sortByName);
 
 // Rutas para buscar criptomonedas por nombre o símbolo en la DB
 router.get('/search', cryptocurrenciesController.searchCryptocurrenciesDB);
 
 // Ruta para obtener crypto por id (detail)
 router.get('/detail/:id', cryptocurrenciesController.getDetailCrypto);
+
+// Ruta para guardar y ver favoritos
+router.get('/fav', cryptocurrenciesController.addToFavorites);
 
 module.exports = router;
