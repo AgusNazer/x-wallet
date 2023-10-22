@@ -8,6 +8,14 @@
   padding: 2rem;
   text-align: center;
 }
+body {
+  font-family: "Syne Mono", monospace;
+  font-size: 18px;
+}
+/* font-family: 'Dancing Script', cursive;
+font-family: 'Lato', sans-serif;
+font-family: 'Roboto', sans-serif;
+font-family: 'Share Tech Mono', monospace; */
 /* body{
   background-image: url(../src/assets/images/wallet4.webp);
   background-size: cover;
