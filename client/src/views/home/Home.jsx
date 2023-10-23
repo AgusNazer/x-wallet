@@ -59,6 +59,7 @@ function Home() {
 
   const handleAddToFavorites = (crypto) => {
     dispatch(addToFavorites(crypto));
+    alert(`Crypto ${crypto.name} added to favorites`)
   };
   return (
     <div className="w-full">
@@ -133,7 +134,7 @@ function Home() {
               </Link>
 
               <button onClick={() => handleAddToFavorites(crypto)}>⭐️</button>
-
+               {/* {alert(`Crypto: ${crypto.name} added to favorites`)} */}
               <p className="text-center">Name: {crypto.name}</p>
               <p className="text-center">Symbol: {crypto.symbol}</p>
               <p className="text-center">Market cap: {crypto.market_cap}</p>
