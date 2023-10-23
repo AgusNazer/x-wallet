@@ -5,24 +5,30 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./views/home/home";
 import Detail from "./views/detail/Detail";
 import Favorites from "./views/favorites/Favorites";
+// import { useAuth } from "./context/AuthContext";
+// import { Navigate } from "react-router-dom";
 
 function App() {
+  // const { user } = useAuth();
   return (
+   
     <AuthProvider>
+    <Routes>
 
-          {/* <h1 className="text-3xl">X-Wallet</h1> */}
-          {/* <Form /> */}
-        <Routes>
-        
-          <Route path="/" element={<Form/>}/>
+    <Route path="/" element={<Form/>}/>
           <Route path="/home" element={<Home/>}/>
+          {/* <Route path="/home" element={user ? <Home /> : <Navigate to="/" />} /> */}
           <Route path="/detail/:id" element={<Detail/>}/>
-          <Route path="/favorites" element={<Favorites />} />
-        
-        </Routes>
+          <Route path="/favorites" element={<Favorites />} /> 
+    </Routes>
 
-    </AuthProvider>
+</AuthProvider> 
+
   );
 }
 
 export default App;
+
+
+
+
