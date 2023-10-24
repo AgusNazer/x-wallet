@@ -19,6 +19,7 @@ export const authContext = createContext();
 // eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const context = useContext(authContext);
+  // console.log(context);
   if (!context) {
     console.log("error creating auth context");
   }

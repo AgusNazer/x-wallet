@@ -2,12 +2,16 @@
 import { useSelector } from "react-redux";
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import { Link } from "react-router-dom";
+// import { useEffect, useState } from "react";
 
 
 function Favorites() {
+ 
   // Accede al arreglo de favoritos desde el estado de Redux
   const favorites = useSelector((state) => state.favorites);
 
+
+  
   return (
     <div className="w-full">
   <Link to='/home'>
@@ -38,21 +42,3 @@ function Favorites() {
 
 export default Favorites;
 
-{
-  /* <div className="favorites-section">
-<h2>Mis Favoritos</h2>
-<ul className="favorites-list">
-  {favorites.map((favorite) => (
-    <li key={favorite.id} className="favorite-card">
-      <div className="favorite-details">
-      <img src={favorite.image} alt={favorite.name} className="w-16 h-16" />
-        <p className="favorite-name">Nombre: {favorite.name}</p>
-        <p className="favorite-symbol">Símbolo: {favorite.symbol}</p>
-        <p className="favorite-market-cap">Market Cap: {favorite.market_cap}</p>
-
-      </div>
-    </li>
-  ))}
-</ul>
-</div> */
-}

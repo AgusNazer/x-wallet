@@ -4,7 +4,8 @@ import { getAllCryptos, addToFavorites } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import { BiLogOutCircle } from "react-icons/bi";
 import { MdFavoriteBorder } from "react-icons/md";
-// import { addToFavorites } from "../../../../server/src/controllers/cryptocurrenciesController";
+// import { AuthProvider, useAuth } from "../../context/AuthContext";
+
 
 function Home() {
   const dispatch = useDispatch();
@@ -13,11 +14,16 @@ function Home() {
   const [filteredCryptos, setFilteredCryptos] = useState([]);
   const [orderValue, setOrderValue] = useState("asc"); // Estado para el ordenamiento
   const [volumeFilter, setVolumeFilter] = useState("all");
+  // const { user } = useAuth();
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     dispatch(getAllCryptos());
+   
   }, [dispatch]);
 
+
+  
   useEffect(() => {
     // Filtra las criptomonedas en función de la búsqueda y el orden
     const filtered = cryptos.filter((crypto) => {
@@ -60,6 +66,12 @@ function Home() {
   const handleAddToFavorites = (crypto) => {
     dispatch(addToFavorites(crypto));
     alert(`Crypto ${crypto.name} added to favorites`)
+     // Actualiza los favoritos en el estado local
+  setFavorites((prevFavorites) => [...prevFavorites, crypto]);
+
+  // Guarda los favoritos en el almacenamiento local
+  const updatedFavorites = [...favorites, crypto];
+  localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
   return (
     <div className="w-full">
