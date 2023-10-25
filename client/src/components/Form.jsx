@@ -114,7 +114,7 @@ const Form = () => {
       navigate('/home');
     } catch (error) {
       console.error("Error al registrar con Google:", error);
-      alert("Error al registrar con Google");
+      // alert("Error al registrar con Google");
     }
   };
 
