@@ -92,15 +92,15 @@ function Home() {
 
   const handleLogout = () => {
     // Muestra un cuadro de diálogo de confirmación
-    const userConfirmed = window.confirm("¿Estás seguro de que deseas cerrar sesión?");
+    const userConfirmed = window.confirm("Are you sure you want to log out?");
     
     if (userConfirmed) {
       auth.logout();
-      alert("Sesión finalizada");
+      alert("Logout");
       navigate('/');
     } else {
       // El usuario canceló el cierre de sesión
-      alert("Cierre de sesión cancelado");
+      alert("Logout canceled");
     }
   };
   return (
@@ -121,7 +121,7 @@ function Home() {
               <label className="text-sm font-medium text-gray-700">
                 Search by name or Ticker symbol
               </label>
-              <div className="flex">
+              <div className="flex ">
                 <input
                   type="text"
                   name="search"
@@ -132,7 +132,7 @@ function Home() {
                 />
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white p-2 rounded-r hover:bg-blue-600"
+                  className="mt-1 bg-blue-500 text-white p-2 rounded-r hover:bg-blue-600"
                 >
                   Search
                 </button>
