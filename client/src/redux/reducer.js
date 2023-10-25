@@ -4,6 +4,7 @@ import {
   GET_DETAIL_CRYPTO,
   SORT_BY_NAME,
   ADD_TO_FAVORITES,
+  DELETE_FAVORITES,
 } from "./actionTypes";
 
 const initialState = {
@@ -41,6 +42,13 @@ const reducer = (state = initialState, { type, payload }) => {
           ...state,
           favorites: [...state.favorites, payload],
         };
+        case DELETE_FAVORITES:
+          console.log("Borrando de favs:", payload);
+          return {
+            ...state,
+            // favorites: [...state.favorites, payload],
+            favorites: state.favorites.filter(favorite => favorite.id !== payload.id),
+          };
       
     default:
       return state;

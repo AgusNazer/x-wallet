@@ -4,7 +4,8 @@ import { getAllCryptos, addToFavorites } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import { BiLogOutCircle } from "react-icons/bi";
 import { MdFavoriteBorder } from "react-icons/md";
-// import { addToFavorites } from "../../../../server/src/controllers/cryptocurrenciesController";
+// import { AuthProvider, useAuth } from "../../context/AuthContext";
+
 
 function Home() {
   const dispatch = useDispatch();
@@ -13,11 +14,22 @@ function Home() {
   const [filteredCryptos, setFilteredCryptos] = useState([]);
   const [orderValue, setOrderValue] = useState("asc"); // Estado para el ordenamiento
   const [volumeFilter, setVolumeFilter] = useState("all");
+  // const { user } = useAuth();
+  // const [favorites, setFavorites] = useState([]);
+
+
+  // Accede a la lista de favoritos desde el estado global de Redux
+  const favorites = useSelector((state) => state.favorites);
+
+  
 
   useEffect(() => {
     dispatch(getAllCryptos());
+   
   }, [dispatch]);
 
+
+  
   useEffect(() => {
     // Filtra las criptomonedas en función de la búsqueda y el orden
     const filtered = cryptos.filter((crypto) => {
@@ -57,10 +69,23 @@ function Home() {
     setVolumeFilter(event.target.value);
   };
 
+
+  //arreglar la persistencia de datos en local storage
   const handleAddToFavorites = (crypto) => {
     dispatch(addToFavorites(crypto));
+
     alert(`Crypto ${crypto.name} added to favorites`)
+     // Actualiza los favoritos en el estado local
   };
+
+
+   //! REVISAR POR QUE NO FUNCIONA LA PERSISTENCIA DE DATOS
+   // Escuchar cambios en la lista de favoritos y actualizar el almacenamiento local
+   useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+
   return (
     <div className="w-full">
       <BiLogOutCircle className="w-8 h-8 text-red-700 mb-2" />
