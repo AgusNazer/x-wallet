@@ -26,6 +26,11 @@ router.get('/search', cryptocurrenciesController.searchCryptocurrenciesDB);
 router.get('/detail/:id', cryptocurrenciesController.getDetailCrypto);
 
 // Ruta para guardar y ver favoritos
-router.get('/fav', cryptocurrenciesController.addToFavorites);
+router.post('/fav', cryptocurrenciesController.addToFavorites);
 
+// // Ruta para agregar un favorito a la base de datos
+// router.post('/addFavorite', cryptocurrenciesController.add
+
+// Ruta para borrar de favos
+router.delete('/delete/:id', cryptocurrenciesController.deleteFavorites)
 module.exports = router;

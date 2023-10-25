@@ -15,7 +15,13 @@ function Home() {
   const [orderValue, setOrderValue] = useState("asc"); // Estado para el ordenamiento
   const [volumeFilter, setVolumeFilter] = useState("all");
   // const { user } = useAuth();
-  const [favorites, setFavorites] = useState([]);
+  // const [favorites, setFavorites] = useState([]);
+
+
+  // Accede a la lista de favoritos desde el estado global de Redux
+  const favorites = useSelector((state) => state.favorites);
+
+  
 
   useEffect(() => {
     dispatch(getAllCryptos());
@@ -63,16 +69,23 @@ function Home() {
     setVolumeFilter(event.target.value);
   };
 
+
+  //arreglar la persistencia de datos en local storage
   const handleAddToFavorites = (crypto) => {
     dispatch(addToFavorites(crypto));
+
     alert(`Crypto ${crypto.name} added to favorites`)
      // Actualiza los favoritos en el estado local
-  setFavorites((prevFavorites) => [...prevFavorites, crypto]);
-
-  // Guarda los favoritos en el almacenamiento local
-  const updatedFavorites = [...favorites, crypto];
-  localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
+
+
+   //! REVISAR POR QUE NO FUNCIONA LA PERSISTENCIA DE DATOS
+   // Escuchar cambios en la lista de favoritos y actualizar el almacenamiento local
+   useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+
   return (
     <div className="w-full">
       <BiLogOutCircle className="w-8 h-8 text-red-700 mb-2" />

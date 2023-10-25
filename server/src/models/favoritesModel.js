@@ -5,7 +5,7 @@ const favoriteSchema = new mongoose.Schema({
   name: String, // Nombre de la criptomoneda
   symbol: String, // Símbolo de la criptomoneda
   market_cap: Number,
-  total_volumen: Number,
+  total_volume: Number,
   image: String,
   description: String
 });

@@ -1,5 +1,6 @@
 const axios = require("axios");
 const Cryptocurrency = require("../models/cryptosModel"); // Importa tu modelo de criptomonedas
+const Favorites = require("../models/favoritesModel"); // Importa tu modelo de criptomonedas
 
 // Controlador para buscar y guardar en la DB
 const getAllCryptos = async (req, res) => {
@@ -182,23 +183,6 @@ const saveCryptocurrency = async (req, res) => {
   }
 };
 
-// Controlador para ordenar las criptomonedas por nombre
-// const sortByName = async (req, res) => {
-//   try {
-//     // Obtén las criptomonedas favoritas desde tu base de datos o donde las almacenes
-//     const sortedByName = await Cryptocurrency.find() // Asumiendo que tienes un modelo llamado Favorites
-//     .limit(200)
-//     .sort({ name: 1 });
-//     // Ordena las criptomonedas por nombre
-//     sortedByName.sort((a, b) => a.name.localeCompare(b.name));
-
-//     // Devuelve las criptomonedas ordenadas como respuesta
-//     res.json(sortedByName);
-//   } catch (error) {
-//     console.error('Error al ordenar las criptomonedas por nombre:', error);
-//     res.status(500).json({ error: 'Ocurrió un error al ordenar las criptomonedas.' });
-//   }
-// };
 
 const addToFavorites = async (req, res) => {
   try {
@@ -232,6 +216,26 @@ const addToFavorites = async (req, res) => {
   }
 };
 
+const deleteFavorites = async (req, res) => {
+  try {
+    const { id } = req.params; // El id de la criptomoneda a eliminar
+
+    // Verificar si la criptomoneda existe en favoritos
+    const existingFavorite = await Favorites.findOneAndDelete(id);
+
+    if (!existingFavorite) {
+      return res.status(404).json({ error: "La criptomoneda no está en tus favoritos" });
+    }
+   
+
+
+    res.status(200).json({ message: "Criptomoneda eliminada de tus favoritos" });
+  } catch (error) {
+    console.error("Error al eliminar de favoritos:", error);
+    res.status(500).json({ error: "Ocurrió un error al eliminar de favoritos" });
+  }
+};
+
 module.exports = {
   getAllCryptos,
   getDetailCrypto,
@@ -239,4 +243,5 @@ module.exports = {
   getAllCryptocurrencies,
   saveCryptocurrency,
   addToFavorites,
+  deleteFavorites
 };
