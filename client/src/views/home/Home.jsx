@@ -5,9 +5,13 @@ import { Link } from "react-router-dom";
 import { BiLogOutCircle } from "react-icons/bi";
 import { MdFavoriteBorder } from "react-icons/md";
 // import { AuthProvider, useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 function Home() {
+  const auth = useAuth()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cryptos = useSelector((state) => state.cryptos);
   const [searchQuery, setSearchQuery] = useState("");
@@ -86,12 +90,29 @@ function Home() {
   }, [favorites]);
 
 
+  const handleLogout = () => {
+    // Muestra un cuadro de diálogo de confirmación
+    const userConfirmed = window.confirm("¿Estás seguro de que deseas cerrar sesión?");
+    
+    if (userConfirmed) {
+      auth.logout();
+      alert("Sesión finalizada");
+      navigate('/');
+    } else {
+      // El usuario canceló el cierre de sesión
+      alert("Cierre de sesión cancelado");
+    }
+  };
   return (
     <div className="w-full">
+      <div className="flex ">
+      <button  onClick={handleLogout}>
       <BiLogOutCircle className="w-8 h-8 text-red-700 mb-2" />
+      </button>
       <Link to={'/favorites'}>
       <MdFavoriteBorder className="w-8 h-8 text-sky-700" />
       </Link>
+      </div>
       <h1 className="text-2xl font-bold mb-4">Crypto List</h1>
       <section>
         <form className="mb-4">

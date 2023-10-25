@@ -124,14 +124,12 @@ const Form = () => {
     alert("Logout");
   };
   return (
-    <div className="">
-      {displayName && <h5>{displayName}</h5>}
+    <div className="border-2">
+    {displayName && <h5>{displayName}</h5>}
 
-      {/* {isLoggedIn && (
-                <h5>{displayName}</h5>
-            )} */}
-      <div className="flex flex-col md:flex-row items-center h-screen justify-center">
-        <form className="bg-sky-300 shadow-md p-8 rounded-lg md:mr-4 mb-4 md:mb-0">
+    <div className="flex flex-col items-center h-screen justify-center">
+      <div className="md:flex md:items-center md:mb-0">
+        <form className="bg-sky-300 shadow-md p-8 rounded-lg mb-4 md:mr-4">
           <h3 className="text-xl mb-4 font-semibold">Register</h3>
           <div className="mb-4">
             <input
@@ -187,21 +185,21 @@ const Form = () => {
             <button onClick={(e) => handleGoogle(e)} className="ml-2">
               <img
                 src="../src/assets/images/logo.png"
-                className="w-20 h-10 "
+                className="w-20 h-10"
                 alt=""
               />
             </button>
           </div>
         </form>
-
-        <button
-          onClick={() => handleLogout()}
-          className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 mt-2"
-        >
-          Logout
-        </button>
       </div>
+      <button
+        onClick={() => handleLogout()}
+        className="bg-red-500 text-white px-4 py-2 rounded-lg hover-bg-red-600 mt-2"
+      >
+        Logout
+      </button>
     </div>
+  </div>
   );
 };
 
