@@ -51,13 +51,13 @@ const Form = () => {
         // Otros campos de perfil si es necesario
       });
 
-      alert("Registro exitoso");
+      alert("Sign in succesfully");
    
     } catch (error) {
       console.error("Error al registrar al usuario:", error);
       if (error.code === "auth/email-already-in-use") {
         alert(
-          "El correo electrónico ya está en uso. Por favor, utiliza otro correo."
+          "The email is already in use, please enter another email"
         );
       } else {
         alert("Error al registrar al usuario");
@@ -79,7 +79,7 @@ const Form = () => {
       navigate('/home');
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
-      alert("Credenciales incorrectas o el usuario no está registrado.");
+      alert("Incorrect credentials or user not register");
     }
   };
 
@@ -110,7 +110,7 @@ const Form = () => {
         });
       }
 
-      alert("Registro exitoso con Google");
+      alert("Sign in successfully");
       navigate('/home');
     } catch (error) {
       console.error("Error al registrar con Google:", error);
