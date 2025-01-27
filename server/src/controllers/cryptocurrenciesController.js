@@ -10,7 +10,7 @@ const getAllCryptos = async (req, res) => {
     // Parámetros para la solicitud a la API de Coingecko
     const apiParams = {
       vs_currency: "usd",
-      per_page: 200,
+      per_page: 100,
       page: 1,
       sparkline: false,
     };

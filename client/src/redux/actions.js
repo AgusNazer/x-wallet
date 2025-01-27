@@ -15,7 +15,7 @@ export function getAllCryptos(name) {
     return async function (dispatch) {
       try {
         // Realiza una solicitud al controlador getAllCryptos en tu backend
-        const response = await axios.get('http://localhost:3000/allCryptos', {
+        const response = await axios.get('https://x-crypto-02a4.onrender.com/allCryptos', {
           params: { name },
         });
   
@@ -61,7 +61,8 @@ export function getDetailCrypto(id) {
   return async function(dispatch){
     console.log(`a ver si llega el id aca, id:${id}`);
     try {
-      const  response  = await axios.get(`http://localhost:3000/detail/${id}`)
+      // const  response  = await axios.get(`http://localhost:3000/detail/${id}`)
+      const  response  = await axios.get(`https://x-crypto-02a4.onrender.com/detail/${id}`)
       const details = response.data
 
       console.log(`id del axios.get ${id}`);
@@ -138,7 +139,8 @@ export const addToFavorites = (crypto) => {
 
       try {
         // Luego, realiza una solicitud al backend para agregar el favorito a la base de datos
-        await axios.post('http://localhost:3000/fav', crypto);
+        // await axios.post('http://localhost:3000/fav', crypto);
+        await axios.post('https://x-crypto-02a4.onrender.com/fav', crypto);
         console.log(`Crypto ${crypto.name} added to favorites and saved to the database.`);
       } catch (error) {
         console.error('Error al guardar el favorito en la base de datos:', error);
