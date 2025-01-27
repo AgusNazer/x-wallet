@@ -17,7 +17,10 @@
     "express": "^4.21.2",
     "firebase-admin": "^11.11.0",
     "mongodb": "^6.1.0",
-    "mongoose": "^7.6.3",
+    "mongoose": "^8.9.5",
     "morgan": "^1.10.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
