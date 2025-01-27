@@ -8,6 +8,7 @@ import Favorites from "./views/favorites/Favorites";
 import { useAuth } from "./context/AuthContext";
 // import { Navigate } from "react-router-dom";
 
+//last upadte: 27-01-25
 
 function App() {
   const { user } = useAuth();

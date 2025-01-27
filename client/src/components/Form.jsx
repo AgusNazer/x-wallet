@@ -129,7 +129,7 @@ const Form = () => {
 
     <div className="flex flex-col items-center h-screen justify-center">
       <div className="md:flex md:items-center md:mb-0">
-        <form className="bg-sky-300 shadow-md p-8 rounded-lg mb-4 md:mr-4">
+        <form className="bg-gray-400 shadow-md p-8 rounded-lg mb-4 md:mr-4">
           <h3 className="text-xl mb-4 font-semibold">Register</h3>
           <div className="mb-4">
             <input
@@ -156,7 +156,7 @@ const Form = () => {
           </button>
         </form>
 
-        <form className="bg-sky-300 shadow-md p-8 rounded-lg md:ml-4">
+        <form className="bg-gray-400 shadow-md p-8 rounded-lg md:ml-4">
           <h3 className="text-xl mb-4 font-semibold">Login</h3>
           <div className="mb-4">
             <input
