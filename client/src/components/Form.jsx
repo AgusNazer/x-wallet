@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
-  getFirestore,
+  // getFirestore,
   addDoc,
   collection,
   setDoc,
@@ -22,9 +22,9 @@ const Form = () => {
   const [passwordRegister, setPasswordRegister] = useState("");
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordlLogin] = useState("");
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
   //revisar para que aparezca el nombre usuaruio al logearme con correo
-  const [isLogged, setIsLogged] = useState(false);
+  // const [isLogged, setIsLogged] = useState(false);
 
   // register viejio
   // const handleRegister = (e) => {
