@@ -89,6 +89,7 @@ export function AuthProvider({ children }) {
       console.error("Error al registrar con Google:", error);
     }
   };
+  //
 
   /**
    * The logout function is an asynchronous function that calls the signOut function and logs the
