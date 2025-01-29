@@ -7,6 +7,8 @@ import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
+  setPersistence,
+  browserSessionPersistence
 } from "firebase/auth";
 
 /* Creating a context object. */
@@ -68,10 +70,26 @@ export function AuthProvider({ children }) {
    * function, which takes the auth and responseGoogle parameters.
    *The responseGoogle object is being returned.
    */
+  // const loginWithGoogle = async () => {
+  //   const responseGoogle = new GoogleAuthProvider();
+  //   return await signInWithPopup(auth, responseGoogle);
+  // };
+
   const loginWithGoogle = async () => {
-    const responseGoogle = new GoogleAuthProvider();
-    return await signInWithPopup(auth, responseGoogle);
+    try {
+      // Configurar persistencia de sesión
+      await setPersistence(auth, browserSessionPersistence);
+      console.log("Persistencia de sesión configurada correctamente.");
+
+      // Iniciar sesión con Google
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      return result;
+    } catch (error) {
+      console.error("Error al registrar con Google:", error);
+    }
   };
+
   /**
    * The logout function is an asynchronous function that calls the signOut function and logs the
    * response to the console.
