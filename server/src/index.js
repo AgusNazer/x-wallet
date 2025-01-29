@@ -12,8 +12,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 // Configuración de middleware
 app.use(cors({
-    origin: 'http://localhost:5173',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: ['http://localhost:5173' ,'https://x-wallet-crypto.netlify.app'],
+    methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
     credentials: true,  // Habilita el envío de cookies y encabezados de autenticación
   }));
 app.use(express.json());
